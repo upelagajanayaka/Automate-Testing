@@ -22,5 +22,13 @@ jobs:
       - name: Set PYTHONPATH
         run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
 
-      - name: Run tests
-        run: pytest tests/
+      - name: Run tests with coverage
+        run: |
+          coverage run -m pytest tests/
+          coverage report
+
+      - name: Upload HTML coverage report (optional)
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-html-report
+          path: htmlcov
